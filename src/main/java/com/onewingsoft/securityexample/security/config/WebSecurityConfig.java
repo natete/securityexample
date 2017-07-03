@@ -4,6 +4,7 @@ import com.onewingsoft.securityexample.security.providers.JwtTokenAuthentication
 import com.onewingsoft.securityexample.security.utils.JwtFilterBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,6 +27,7 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@ComponentScan(value = { "com.onewingsoft.securityexample" })
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String API_ENDPOINTS = "/api/**";
@@ -34,10 +36,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public static final String TOKEN_HEADER = "Authorization";
 
     @Autowired
-    private AuthenticationEntryPoint authenticationEntryPoint;
+    private CorsFilter corsFilter;
 
     @Autowired
-    private CorsFilter corsFilter;
+    private AuthenticationEntryPoint authenticationEntryPoint;
 
     @Autowired
     private JwtFilterBuilder jwtFilterBuilder;
