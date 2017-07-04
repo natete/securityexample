@@ -30,7 +30,7 @@ import java.util.Map;
 public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     public static final String ACCESS_TOKEN = "access_token";
-    public static final String REFRESH_TOKEN = "refreshToken";
+    public static final String REFRESH_TOKEN = "refresh_token";
 
     private final ObjectMapper mapper;
     private final JwtTokenCreator tokenCreator;

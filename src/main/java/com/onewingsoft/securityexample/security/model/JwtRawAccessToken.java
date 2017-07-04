@@ -13,9 +13,7 @@ public class JwtRawAccessToken implements JwtToken {
 
     public Jws<Claims> parseClaims(String signingKey) {
         try {
-            Jws<Claims> jws = Jwts.parser().setSigningKey(signingKey).parseClaimsJws(this.token);
-            // TODO check if the token has been revoked
-            return jws;
+            return Jwts.parser().setSigningKey(signingKey).parseClaimsJws(this.token);
         } catch (UnsupportedJwtException | MalformedJwtException | IllegalArgumentException | SignatureException ex) {
             throw new BadCredentialsException(ex.getMessage(), ex);
         } catch (ExpiredJwtException expiredEx) {

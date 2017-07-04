@@ -31,6 +31,8 @@ public class JwtTokenAuthenticationProvider implements AuthenticationProvider {
 
         Jws<Claims> claims = rawAccessToken.parseClaims(appPropsValues.getJwtSecret());
 
+        // TODO check if the token has been revoked
+
         String subject = claims.getBody().getSubject();
         List<String> roles = claims.getBody().get(JwtTokenCreatorImpl.ROLES_KEY, List.class);
         List<CustomAuthority> authorities = roles.stream().map(CustomAuthority::valueOf).collect(Collectors.toList());

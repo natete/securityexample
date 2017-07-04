@@ -24,14 +24,13 @@ import java.util.Set;
 
 /**
  * Class that provides the dispatcher servlet application for the Swagger Web MVC context.
- *
+ * <p>
  * For access to swagger, you use the follow URLs:
- *
- *   Swagger UI  : http://localhost:8080/{context-app}/swagger-ui.html
- *   Swagger Docs: http://localhost:8080/{context-app}/v2/api-docs
+ * <p>
+ * Swagger UI  : http://localhost:8080/{context-app}/swagger-ui.html
+ * Swagger Docs: http://localhost:8080/{context-app}/v2/api-docs
  *
  * @author iiglesias
- *
  */
 @Configuration
 @EnableWebMvc
@@ -50,6 +49,8 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
         // Access to swagger ui
 
         registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+
+        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
     /**
@@ -62,7 +63,7 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
     public Docket api() {
 
         Docket docket = new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
-                                                               .paths(PathSelectors.any()).build();
+                .paths(PathSelectors.any()).build();
 
         // Custom methods response messages
 
@@ -85,11 +86,11 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
         // Custom Information
 
         docket.apiInfo(new ApiInfo(appPropsValues.getSwaggerInfoTitle(), appPropsValues.getSwaggerInfoDescription(),
-                                   appPropsValues.getSwaggerInfoVersion(), appPropsValues
-                                           .getSwaggerInfoTermsOfServiceUrl(), new Contact(
+                appPropsValues.getSwaggerInfoVersion(), appPropsValues
+                .getSwaggerInfoTermsOfServiceUrl(), new Contact(
                 appPropsValues.getSwaggerInfoContactName(), appPropsValues.getSwaggerInfoContactUrl(),
                 appPropsValues.getSwaggerInfoContactEmail()), appPropsValues.getSwaggerInfoLicense(),
-                                   appPropsValues.getSwaggerInfoLicenseURL(), new ArrayList<VendorExtension>()));
+                appPropsValues.getSwaggerInfoLicenseURL(), new ArrayList<VendorExtension>()));
 
         return docket;
     }

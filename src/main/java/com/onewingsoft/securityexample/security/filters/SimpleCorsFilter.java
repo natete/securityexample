@@ -10,10 +10,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
- *
- *
  * @author natete
  * @since 02/07/17.
  */
@@ -23,14 +22,14 @@ public class SimpleCorsFilter {
 
     @Bean
     public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(false);
-        config.setAllowedOrigins(Arrays.asList("OPTIONS", "GET", "POST", "PUT", "DELETE "));
-        config.addAllowedMethod("*");
-        config.addAllowedHeader("*");
+        config.setAllowCredentials(true);
+        config.setAllowedMethods(Arrays.asList("OPTIONS", "GET", "POST", "PUT", "DELETE"));
+        config.setAllowedOrigins(Collections.singletonList("*"));
+//        config.addAllowedHeader("*");
 
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration(WebSecurityConfig.API_ENDPOINTS, config);
 
         return new CorsFilter(source);

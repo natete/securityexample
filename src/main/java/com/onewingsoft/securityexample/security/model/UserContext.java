@@ -15,7 +15,7 @@ public class UserContext {
     private final String username;
     private final Collection<CustomAuthority> authorities;
 
-    public UserContext(String username, Collection<CustomAuthority> authorities) {
+    private UserContext(String username, Collection<CustomAuthority> authorities) {
         this.username = username;
         this.authorities = authorities;
     }

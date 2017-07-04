@@ -20,8 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- *
- *
  * @author natete
  * @since 02/07/17.
  */
@@ -30,8 +28,8 @@ public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
     private final AuthenticationFailureHandler failureHandler;
     private final TokenExtractor tokenExtractor;
 
-    public JwtTokenFilter(AuthenticationFailureHandler failureHandler, JwtTokenCreator tokenCreator,
-            TokenExtractor tokenExtractor, RequestMatcher requestMatcher) {
+    public JwtTokenFilter(AuthenticationFailureHandler failureHandler, TokenExtractor tokenExtractor,
+            RequestMatcher requestMatcher) {
         super(requestMatcher);
         this.failureHandler = failureHandler;
         this.tokenExtractor = tokenExtractor;

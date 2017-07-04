@@ -26,16 +26,14 @@ public class JwtFilterBuilder {
 
     private final AuthenticationSuccessHandler successHandler;
     private final AuthenticationFailureHandler failureHandler;
-    private final JwtTokenCreator tokenCreator;
     private final TokenExtractor tokenExtractor;
     private final AuthenticationManager authenticationManager;
 
     @Autowired
     public JwtFilterBuilder(AuthenticationSuccessHandler successHandler, AuthenticationFailureHandler failureHandler,
-            JwtTokenCreator tokenCreator, TokenExtractor tokenExtractor, AuthenticationManager authenticationManager) {
+            TokenExtractor tokenExtractor, AuthenticationManager authenticationManager) {
         this.successHandler = successHandler;
         this.failureHandler = failureHandler;
-        this.tokenCreator = tokenCreator;
         this.tokenExtractor = tokenExtractor;
         this.authenticationManager = authenticationManager;
     }
@@ -47,7 +45,7 @@ public class JwtFilterBuilder {
 
         SkipPathRequestMatcher matcher = new SkipPathRequestMatcher(pathsToSkip, WebSecurityConfig.API_ENDPOINTS);
 
-        JwtTokenFilter filter = new JwtTokenFilter(failureHandler, tokenCreator, tokenExtractor, matcher);
+        JwtTokenFilter filter = new JwtTokenFilter(failureHandler, tokenExtractor, matcher);
 
         filter.setAuthenticationManager(authenticationManager);
 

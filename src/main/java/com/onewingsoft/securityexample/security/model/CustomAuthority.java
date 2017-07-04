@@ -10,7 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
  */
 public enum CustomAuthority implements GrantedAuthority {
 
-    REFRESH("REFRESH");
+    REFRESH("REFRESH"), ADMIN("ADMIN");
 
     private String authority;
 
