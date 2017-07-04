@@ -26,8 +26,11 @@
         <springfox.swagger2.version>2.7.0</springfox.swagger2.version>
         <spring-security-web.version>4.2.3.RELEASE</spring-security-web.version>
         <jjwt.version>0.7.0</jjwt.version>
-
         <commons-lang3.version>3.4</commons-lang3.version>
+        <spring-data-redis.version>1.8.4.RELEASE</spring-data-redis.version>
+        <jedis.version>2.9.0</jedis.version>
+        <lombok.version>1.16.18</lombok.version>
+
     </properties>
 
     <build>
@@ -142,12 +145,12 @@
         </dependency>
 
         <!-- Spring security -->
+
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
             <version>${spring-security-web.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
@@ -169,6 +172,27 @@
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
         </dependency>
+
+        <!-- Redis -->
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>${spring-data-redis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
 
     </dependencies>
 

@@ -3,6 +3,7 @@ package com.onewingsoft.securityexample.security.model;
 import com.onewingsoft.securityexample.security.exceptions.JwtExpiredTokenException;
 import io.jsonwebtoken.*;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
 
 public class JwtRawAccessToken implements JwtToken {
     private String token;
@@ -11,7 +12,7 @@ public class JwtRawAccessToken implements JwtToken {
         this.token = token;
     }
 
-    public Jws<Claims> parseClaims(String signingKey) {
+    public Jws<Claims> parseClaims(String signingKey) throws AuthenticationException {
         try {
             return Jwts.parser().setSigningKey(signingKey).parseClaimsJws(this.token);
         } catch (UnsupportedJwtException | MalformedJwtException | IllegalArgumentException | SignatureException ex) {

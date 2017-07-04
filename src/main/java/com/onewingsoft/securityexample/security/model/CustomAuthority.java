@@ -5,7 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 /**
  *
  *
- * @author natete
+ * @author igonzalez
  * @since 02/07/17.
  */
 public enum CustomAuthority implements GrantedAuthority {

@@ -11,11 +11,6 @@ public class AppPropsKeys {
     /*
      * Sort the constants in alphabetical order
      */
-    public static final String APP_NAME = "app.name";
-    public static final String JWT_REFRESH_TOKEN_EXPIRATION_TIME = "jwt.refreshTokenExpirationTime";
-    public static final String JWT_SECRET = "app.secret";
-    public static final String JWT_TOKEN_EXPIRATION_TIME = "jwt.tokenExpirationTime";
-
     public static final String SWAGGER_INFO_CONTACT_EMAIL = "swagger.info.contact.email";
     public static final String SWAGGER_INFO_CONTACT_NAME = "swagger.info.contact.name";
     public static final String SWAGGER_INFO_CONTACT_URL = "swagger.info.contact.url";

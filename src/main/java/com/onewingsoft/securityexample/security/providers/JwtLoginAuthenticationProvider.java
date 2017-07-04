@@ -11,7 +11,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 @Component
@@ -37,6 +36,7 @@ public class JwtLoginAuthenticationProvider implements AuthenticationProvider {
         // Get the user you need to check if the credentials are valid
         final String validUsername = "admin";
         final String validPassword = encoder.encode("admin");
+
         if (!username.equals(validUsername) || !encoder.matches(password, validPassword)) {
             throw new BadCredentialsException("Usuario o contraseña incorrectas");
         }

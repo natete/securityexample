@@ -1,0 +1,115 @@
+{
+  "variables": [],
+  "info": {
+    "name": "SecurityExample",
+    "_postman_id": "00ab317c-f99e-c021-c7a0-550ac169cbca",
+    "description": "",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "var jsonData = JSON.parse(responseBody);",
+              "postman.setEnvironmentVariable(\"accessToken\", jsonData.accessToken);",
+              "postman.setEnvironmentVariable(\"refreshToken\", jsonData.refreshToken);",
+              ""
+            ]
+          }
+        }
+      ],
+      "request": {
+        "url": "{{baseUrl}}/api/auth/login",
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXRldGUiLCJyb2xlcyI6WyJSRUZSRVNIIl0sImV4cCI6MTQ5NzUxNjYyNCwiaWF0IjoxNDk3NDczNDI0LCJqdGkiOiI4NmVkODI4Ni1jMGY1LTQyNjMtYTAxZC00MTUzMTBkNzk2YzgifQ.tn97Px-778h3YYkkBGUS2o69bqLYLQJaMHCc9Rpb8ceY6U7_oAfT_5reJUNQVfmPkSYpp6RINXEGxiwJ5e0r8g",
+            "description": "",
+            "disabled": true
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "description": ""
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"username\": \"admin\", \"password\": \"admin\"}"
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Test",
+      "request": {
+        "url": "{{baseUrl}}/api/test",
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{accessToken}}",
+            "description": ""
+          }
+        ],
+        "body": {},
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Refresh Token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "var jsonData = JSON.parse(responseBody);",
+              "postman.setEnvironmentVariable(\"accessToken\", jsonData.accessToken);",
+              "postman.setEnvironmentVariable(\"refreshToken\", jsonData.refreshToken);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "url": "{{baseUrl}}/api/auth/refresh",
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "\"{{refreshToken}}\""
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Logout",
+      "request": {
+        "url": "{{baseUrl}}/api/auth/logout",
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "description": ""
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"accessToken\": \"{{accessToken}}\",\n    \"refreshToken\": \"{{refreshToken}}\"\n}"
+        },
+        "description": ""
+      },
+      "response": []
+    }
+  ]
+}

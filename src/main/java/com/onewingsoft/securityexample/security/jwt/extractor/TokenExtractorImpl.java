@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 /**
  *
  *
- * @author natete
+ * @author igonzalez
  * @since 02/07/17.
  */
 @Component

@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * Manages not authenticated requests
  *
- * @author natete
+ * @author igonzalez
  * @since 02/07/17.
  */
 @Component

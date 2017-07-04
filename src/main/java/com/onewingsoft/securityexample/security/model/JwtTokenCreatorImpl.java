@@ -1,6 +1,6 @@
 package com.onewingsoft.securityexample.security.model;
 
-import com.onewingsoft.securityexample.commons.props.AppPropsValues;
+import com.onewingsoft.securityexample.security.props.SecurityPropsValues;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ public class JwtTokenCreatorImpl extends JwtTokenCreator {
     public static final String ROLES_KEY = "roles";
 
     @Autowired
-    public JwtTokenCreatorImpl(AppPropsValues propsValues) {
+    public JwtTokenCreatorImpl(SecurityPropsValues propsValues) {
         super(propsValues);
     }
 
@@ -29,7 +29,8 @@ public class JwtTokenCreatorImpl extends JwtTokenCreator {
         claims.setExpiration(Date.from(currentTime.plusMinutes(this.propsValues.getJwtTokenExpirationTime())
                                                   .atZone(ZoneId.systemDefault()).toInstant()));
 
-        claims.put(ROLES_KEY, user.getAuthorities().stream().map(s -> s.getAuthority()).collect(Collectors.toList()));
+        claims.put(ROLES_KEY, user.getAuthorities().stream().map(CustomAuthority::getAuthority)
+                                  .collect(Collectors.toList()));
 
         return claims;
     }

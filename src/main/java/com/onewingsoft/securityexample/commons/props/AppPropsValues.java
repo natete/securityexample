@@ -17,18 +17,6 @@ public class AppPropsValues {
      * NOTE: Sort the private variables in alphabetical order
      */
 
-    @Value("${" + AppPropsKeys.APP_NAME + "}")
-    private String appName;
-
-    @Value("${" + AppPropsKeys.JWT_REFRESH_TOKEN_EXPIRATION_TIME + "}")
-    private int jwtRefreshTokenExpirationTime;
-
-    @Value("${" + AppPropsKeys.JWT_SECRET + "}")
-    private String jwtSecret;
-
-    @Value("${" + AppPropsKeys.JWT_TOKEN_EXPIRATION_TIME + "}")
-    private int jwtTokenExpirationTime;
-
     @Value("${" + AppPropsKeys.SWAGGER_INFO_CONTACT_EMAIL + "}")
     private String swaggerInfoContactEmail;
 
@@ -55,22 +43,6 @@ public class AppPropsValues {
 
     @Value("${" + AppPropsKeys.SWAGGER_INFO_VERSION + "}")
     private String swaggerInfoVersion;
-
-    public String getAppName() {
-        return appName;
-    }
-
-    public int getJwtRefreshTokenExpirationTime() {
-        return jwtRefreshTokenExpirationTime;
-    }
-
-    public String getJwtSecret() {
-        return jwtSecret;
-    }
-
-    public int getJwtTokenExpirationTime() {
-        return jwtTokenExpirationTime;
-    }
 
     public String getSwaggerInfoContactEmail() {
         return swaggerInfoContactEmail;

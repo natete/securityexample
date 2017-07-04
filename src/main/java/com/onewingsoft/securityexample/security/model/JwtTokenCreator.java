@@ -1,6 +1,6 @@
 package com.onewingsoft.securityexample.security.model;
 
-import com.onewingsoft.securityexample.commons.props.AppPropsValues;
+import com.onewingsoft.securityexample.security.props.SecurityPropsValues;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -14,16 +14,16 @@ import java.util.UUID;
 /**
  *
  *
- * @author natete
+ * @author igonzalez
  * @since 02/07/17.
  */
 public abstract class JwtTokenCreator {
 
     private static SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
-    protected final AppPropsValues propsValues;
+    protected final SecurityPropsValues propsValues;
 
-    public JwtTokenCreator(AppPropsValues propsValues) {
+    public JwtTokenCreator(SecurityPropsValues propsValues) {
         this.propsValues = propsValues;
     }
 

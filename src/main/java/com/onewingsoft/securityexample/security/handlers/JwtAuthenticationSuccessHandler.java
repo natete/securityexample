@@ -23,14 +23,14 @@ import java.util.Map;
 /**
  *
  *
- * @author natete
+ * @author igonzalez
  * @since 02/07/17.
  */
 @Component
 public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-    public static final String ACCESS_TOKEN = "access_token";
-    public static final String REFRESH_TOKEN = "refresh_token";
+    public static final String ACCESS_TOKEN = "accessToken";
+    public static final String REFRESH_TOKEN = "refreshToken";
 
     private final ObjectMapper mapper;
     private final JwtTokenCreator tokenCreator;

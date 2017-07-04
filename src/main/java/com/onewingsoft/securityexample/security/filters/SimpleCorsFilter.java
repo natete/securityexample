@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * @author natete
+ * @author igonzalez
  * @since 02/07/17.
  */
 @Component

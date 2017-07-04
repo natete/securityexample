@@ -16,7 +16,7 @@ import java.io.IOException;
 /**
  *
  *
- * @author natete
+ * @author igonzalez
  * @since 02/07/17.
  */
 @Component

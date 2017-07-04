@@ -8,13 +8,13 @@ import java.util.Collection;
 /**
  *
  *
- * @author natete
+ * @author igonzalez
  * @since 02/07/17.
  */
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
-    private final JwtRawAccessToken rawAccessToken;
-    private final UserContext userContext;
+    private JwtRawAccessToken rawAccessToken;
+    private UserContext userContext;
 
     public JwtAuthenticationToken(JwtRawAccessToken unsafeToken) {
         super(null);
@@ -32,12 +32,28 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
     }
 
     @Override
+    public void setAuthenticated(boolean authenticated) {
+        if (authenticated) {
+            throw new IllegalArgumentException("Cannot set this token to trusted - use constructor which takes a GrantedAuthority list instead");
+        }
+
+        super.setAuthenticated(false);
+    }
+
+    @Override
     public Object getCredentials() {
-        return null;
+        return rawAccessToken;
     }
 
     @Override
     public Object getPrincipal() {
-        return null;
+        return this.userContext;
+    }
+
+    @Override
+    public void eraseCredentials() {
+        super.eraseCredentials();
+        this.rawAccessToken = null;
+        this.userContext = null;
     }
 }

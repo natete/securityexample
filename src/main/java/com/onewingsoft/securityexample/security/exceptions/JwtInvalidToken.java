@@ -1,4 +1,10 @@
 package com.onewingsoft.securityexample.security.exceptions;
 
-public class JwtInvalidToken extends RuntimeException {
+import org.springframework.security.core.AuthenticationException;
+
+public class JwtInvalidToken extends AuthenticationException {
+
+    public JwtInvalidToken(String msg) {
+        super(msg);
+    }
 }

@@ -4,7 +4,6 @@ import com.onewingsoft.securityexample.security.config.WebSecurityConfig;
 import com.onewingsoft.securityexample.security.jwt.extractor.TokenExtractor;
 import com.onewingsoft.securityexample.security.model.JwtAuthenticationToken;
 import com.onewingsoft.securityexample.security.model.JwtRawAccessToken;
-import com.onewingsoft.securityexample.security.model.JwtTokenCreator;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
@@ -20,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @author natete
+ * @author igonzalez
  * @since 02/07/17.
  */
 public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {

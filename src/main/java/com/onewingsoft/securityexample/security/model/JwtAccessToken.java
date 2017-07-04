@@ -6,7 +6,7 @@ import io.jsonwebtoken.Claims;
 /**
  *
  *
- * @author natete
+ * @author igonzalez
  * @since 02/07/17.
  */
 public class JwtAccessToken implements JwtToken {

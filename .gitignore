@@ -44,7 +44,7 @@ buildNumber.properties
 
 *.iml
 modules.xml
-.idea/misc.xml
+.idea/**
 *.ipr
 
 ### Eclipse ###

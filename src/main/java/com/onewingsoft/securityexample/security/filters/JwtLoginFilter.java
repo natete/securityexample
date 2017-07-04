@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.Collections;
 
 /**
- * @author natete
+ * @author igonzalez
  * @since 02/07/17.
  */
 public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {

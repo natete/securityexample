@@ -1,11 +1,13 @@
 package com.onewingsoft.securityexample.security.config;
 
+import com.onewingsoft.securityexample.security.filters.JwtTokenFilter;
 import com.onewingsoft.securityexample.security.providers.JwtLoginAuthenticationProvider;
 import com.onewingsoft.securityexample.security.providers.JwtTokenAuthenticationProvider;
 import com.onewingsoft.securityexample.security.utils.JwtFilterBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -16,6 +18,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.web.filter.CorsFilter;
 
 /**
@@ -29,12 +33,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public static final String API_ENDPOINTS = "/api/**";
     public static final String LOGIN_ENDPOINT = "/api/auth/login";
     public static final String REFRESH_TOKEN_ENDPOINT = "/api/auth/refresh";
+    public static final String REVOKE_TOKEN_ENDPOINT = "/api/auth/logout";
     public static final String TOKEN_HEADER = "Authorization";
 
     private final CorsFilter corsFilter;
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final JwtLoginAuthenticationProvider loginAuthenticationProvider;
     private final JwtTokenAuthenticationProvider tokenAuthenticationProvider;
+    private final LogoutHandler logoutHandler;
 
     @Autowired
     private JwtFilterBuilder jwtFilterBuilder;
@@ -42,44 +48,52 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public WebSecurityConfig(CorsFilter corsFilter, AuthenticationEntryPoint authenticationEntryPoint,
             JwtLoginAuthenticationProvider loginAuthenticationProvider,
-            JwtTokenAuthenticationProvider tokenAuthenticationProvider) {
+            JwtTokenAuthenticationProvider tokenAuthenticationProvider, LogoutHandler logoutHandler) {
         this.corsFilter = corsFilter;
         this.authenticationEntryPoint = authenticationEntryPoint;
         this.loginAuthenticationProvider = loginAuthenticationProvider;
         this.tokenAuthenticationProvider = tokenAuthenticationProvider;
+        this.logoutHandler = logoutHandler;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
 
-                .exceptionHandling()
-                .authenticationEntryPoint(this.authenticationEntryPoint)
+            .exceptionHandling()
+            .authenticationEntryPoint(this.authenticationEntryPoint)
 
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
-                .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS, API_ENDPOINTS)
-                .permitAll()
+            .and()
+            .authorizeRequests()
+            .antMatchers(HttpMethod.OPTIONS, API_ENDPOINTS)
+            .permitAll()
 
-                .and()
-                .authorizeRequests()
-                .antMatchers(LOGIN_ENDPOINT)
-                .permitAll()
+            .and()
+            .authorizeRequests()
+            .antMatchers(LOGIN_ENDPOINT, REFRESH_TOKEN_ENDPOINT)
+            .permitAll()
 
-                .and()
-                .authorizeRequests()
-                .antMatchers(API_ENDPOINTS)
-                .permitAll()
+            .and()
+            .logout()
+            .logoutUrl(REVOKE_TOKEN_ENDPOINT)
+            .addLogoutHandler(logoutHandler)
+            .logoutSuccessHandler((new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)))
 
-                .and()
-                .addFilterBefore(corsFilter, ChannelProcessingFilter.class)
-                // Filters to manage authentication
-                .addFilterAfter(jwtFilterBuilder.buildJwtLoginFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilterAfter(jwtFilterBuilder.buildJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+            .and()
+            .authorizeRequests()
+            .antMatchers(API_ENDPOINTS)
+            .permitAll()
+
+            .and()
+            .addFilterBefore(corsFilter, ChannelProcessingFilter.class)
+            // Filters to manage authentication
+            .addFilterAfter(jwtFilterBuilder.buildJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
+            .addFilterAfter(jwtFilterBuilder.buildJwtLoginFilter(), JwtTokenFilter.class)
+            .addFilterBefore(jwtFilterBuilder.buildJwtRefreshFilter(), JwtTokenFilter.class);
     }
 
     @Override
