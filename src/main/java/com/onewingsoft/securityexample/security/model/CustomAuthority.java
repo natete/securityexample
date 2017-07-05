@@ -3,7 +3,7 @@ package com.onewingsoft.securityexample.security.model;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
- *
+ * Enum that represents the granted authorities present in the system.
  *
  * @author igonzalez
  * @since 02/07/17.
@@ -18,6 +18,9 @@ public enum CustomAuthority implements GrantedAuthority {
         this.authority = authority;
     }
 
+    /**
+     * @see GrantedAuthority#getAuthority()
+     */
     @Override
     public String getAuthority() {
         return this.authority;

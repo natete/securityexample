@@ -46,7 +46,7 @@ public abstract class JwtTokenCreator {
 
         String jwt = this.buildJwt(claims);
 
-        return new JwtAccessToken(jwt, claims);
+        return new JwtAccessToken(jwt);
     }
 
     public JwtToken createRefreshToken(UserContext user) {
@@ -59,7 +59,7 @@ public abstract class JwtTokenCreator {
 
         String jwt = this.buildJwt(claims);
 
-        return new JwtAccessToken(jwt, claims);
+        return new JwtAccessToken(jwt);
 
     }
 

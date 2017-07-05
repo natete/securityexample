@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * {@see TokenVerifier}
+ * @see TokenVerifier
  *
  * @author igonzalez
  * @since 04/07/17.
@@ -22,7 +22,7 @@ public class TokenVerifierImpl implements TokenVerifier {
     }
 
     /**
-     * {@see TokenVerivier#isRevoked}
+     * @see TokenVerifier#isRevoked(Claims)
      */
     @Override
     public boolean isRevoked(Claims claims) {
@@ -30,7 +30,7 @@ public class TokenVerifierImpl implements TokenVerifier {
     }
 
     /**
-     * {@see TokenVerivier#repositories}
+     * @see TokenVerifier#revokeToken(Claims)
      */
     @Override
     public void revokeToken(Claims claims) {

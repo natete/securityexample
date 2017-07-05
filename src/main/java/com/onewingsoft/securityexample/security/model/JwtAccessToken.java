@@ -1,10 +1,7 @@
 package com.onewingsoft.securityexample.security.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.jsonwebtoken.Claims;
-
 /**
- *
+ * Represents an access token.
  *
  * @author igonzalez
  * @since 02/07/17.
@@ -12,20 +9,21 @@ import io.jsonwebtoken.Claims;
 public class JwtAccessToken implements JwtToken {
 
     private final String token;
-    @JsonIgnore
-    private final Claims claims;
 
-    protected JwtAccessToken(String token, Claims claims) {
+    /**
+     * Default constructor.
+     * @param token
+     */
+    protected JwtAccessToken(String token) {
         this.token = token;
-        this.claims = claims;
     }
 
+    /**
+     * @see JwtToken#getToken()
+     * @return a String representing the token.
+     */
     @Override
     public String getToken() {
         return this.token;
-    }
-
-    public Claims getClaims() {
-        return this.claims;
     }
 }

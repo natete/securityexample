@@ -5,8 +5,7 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.stereotype.Component;
 
 /**
- * {@see TokenExtractor}
- *
+ * @see TokenExtractor
  * @author igonzalez
  * @since 02/07/17.
  */
@@ -16,7 +15,7 @@ public class TokenExtractorImpl implements TokenExtractor {
     private static final String HEADER_PREFIX = "Bearer ";
 
     /**
-     * {@see TokenExtractor#extract}
+     * @see TokenExtractor#extract(String)
      */
     @Override
     public String extract(String payload) {

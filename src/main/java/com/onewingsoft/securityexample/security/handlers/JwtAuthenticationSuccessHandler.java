@@ -47,9 +47,9 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
     }
 
     /**
-     * {@see AuthenticationSuccessHandler#onAuthenticationSuccess} the method to be called when the authentication
-     * process succeeds.
+     * Method to be called when the authentication process succeeds.
      *
+     * @see AuthenticationSuccessHandler#onAuthenticationSuccess(HttpServletRequest, HttpServletResponse, Authentication)
      * @param request the received request.
      * @param response the response to be sent.
      * @param auth the result of the authentication process.

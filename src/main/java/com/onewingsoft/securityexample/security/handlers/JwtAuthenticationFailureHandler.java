@@ -28,8 +28,9 @@ public class JwtAuthenticationFailureHandler implements AuthenticationFailureHan
     private final ObjectMapper mapper = new ObjectMapper();
 
     /**
-     * {@see AuthenticationFailureHandler#onAuthenticationFailure}
+     * Method to be called when the authentication fails.
      *
+     * @see AuthenticationFailureHandler#onAuthenticationFailure(HttpServletRequest, HttpServletResponse, AuthenticationException)
      * @param request the received request.
      * @param response the response to be sent.
      * @param e the authentication error registered.

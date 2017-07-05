@@ -6,8 +6,9 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Collection;
 
 /**
+ * Represents an authentication token on the process of being validated.
  *
- *
+ * @see AbstractAuthenticationToken
  * @author igonzalez
  * @since 02/07/17.
  */
@@ -16,6 +17,11 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
     private JwtRawAccessToken rawAccessToken;
     private UserContext userContext;
 
+    /**
+     * Constructor of a token not yet validated.
+     *
+     * @param unsafeToken the token to be validated.
+     */
     public JwtAuthenticationToken(JwtRawAccessToken unsafeToken) {
         super(null);
         this.rawAccessToken = unsafeToken;
@@ -23,6 +29,12 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
         this.setAuthenticated(false);
     }
 
+    /**
+     * Constructor of a valid user.
+     *
+     * @param user the valid user extracted from the request.
+     * @param authorities the authorities that the user holds
+     */
     public JwtAuthenticationToken(UserContext user, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.eraseCredentials();
@@ -31,6 +43,10 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
         super.setAuthenticated(true);
     }
 
+    /**
+     * @see AbstractAuthenticationToken#setAuthenticated(boolean)
+     * @param authenticated
+     */
     @Override
     public void setAuthenticated(boolean authenticated) {
         if (authenticated) {
@@ -40,16 +56,27 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
         super.setAuthenticated(false);
     }
 
+    /**
+     * @see AbstractAuthenticationToken#getCredentials()
+     * @return the credentials represented by a {@link JwtRawAccessToken}
+     */
     @Override
     public Object getCredentials() {
         return rawAccessToken;
     }
 
+    /**
+     * @see AbstractAuthenticationToken#getPrincipal()
+     * @return the credentials represented by a {@link UserContext}
+     */
     @Override
     public Object getPrincipal() {
         return this.userContext;
     }
 
+    /**
+     * @see AbstractAuthenticationToken#eraseCredentials()
+     */
     @Override
     public void eraseCredentials() {
         super.eraseCredentials();

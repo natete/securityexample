@@ -65,9 +65,9 @@ public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
     }
 
     /**
-     * {@see AbstractAuthenticationProcessingFilter#successfulAuthentication} Method to be called when the authentication
-     * process succeeds.
+     * Method to be called when the authentication process succeeds.
      *
+     * @see AbstractAuthenticationProcessingFilter#successfulAuthentication(HttpServletRequest, HttpServletResponse, FilterChain, Authentication)
      * @param request the request received.
      * @param response the response to be sent.
      * @param chain the filter chain to be applied.
@@ -86,9 +86,9 @@ public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
     }
 
     /**
-     * {@see AbstractAuthenticationProcessingFilter#unsuccessfulAuthentication} Method to be called whe the authentication
-     * process fails.
+     * Method to be called whe the authentication process fails.
      *
+     * @see AbstractAuthenticationProcessingFilter#unsuccessfulAuthentication(HttpServletRequest, HttpServletResponse, AuthenticationException)
      * @param request the request received.
      * @param response the response to be sent.
      * @param failed the authentication error that produced the failure.

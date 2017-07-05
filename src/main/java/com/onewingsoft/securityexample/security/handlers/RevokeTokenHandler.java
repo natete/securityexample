@@ -45,8 +45,9 @@ public class RevokeTokenHandler implements LogoutHandler {
     }
 
     /**
-     * {@see LogoutHandler#logout} handles the logout request.
+     * Handles the logout request.
      *
+     * @see LogoutHandler#logout(HttpServletRequest, HttpServletResponse, Authentication)
      * @param request the received request.
      * @param response the response to be sent.
      * @param authentication the authentication result.

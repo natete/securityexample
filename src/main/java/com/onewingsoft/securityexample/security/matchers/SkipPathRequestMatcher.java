@@ -9,7 +9,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * {@See RequestMatcher} A request skipMatcher to allow to skip some urls.
+ * A request skipMatcher to allow to skip some urls.
+ * @see RequestMatcher
  */
 public class SkipPathRequestMatcher implements RequestMatcher {
 
@@ -35,8 +36,9 @@ public class SkipPathRequestMatcher implements RequestMatcher {
     }
 
     /**
-     * {@see RequestMatcher#matches}
+     * Matches a request considering the path to be matched and the paths to be skipped.
      *
+     * @see RequestMatcher#matches(HttpServletRequest)
      * @param request the request to be matched.
      * @return true if the request matches the processingMatcher and does not match the skipMatcher.
      */
