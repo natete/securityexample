@@ -1,7 +1,6 @@
 package com.onewingsoft.securityexample.security.filters;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.onewingsoft.securityexample.security.jwt.extractor.TokenExtractor;
 import com.onewingsoft.securityexample.security.model.JwtAuthenticationToken;
 import com.onewingsoft.securityexample.security.model.JwtRawAccessToken;
 import org.springframework.security.core.Authentication;
@@ -15,23 +14,38 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- *
+ * The filter to be applied on refresh token requests.
  *
  * @author igonzalez
  * @since 04/07/17.
  */
 public class JwtRefreshFilter extends JwtLoginFilter {
 
-    private final TokenExtractor tokenExtractor;
     private final ObjectMapper mapper;
 
+    /**
+     * Default constructor.
+     *
+     * @param url the url to be filtered.
+     * @param successHandler the method to be called on authentication success.
+     * @param failureHandler the method to be called on authentication error.
+     */
     public JwtRefreshFilter(String url, AuthenticationSuccessHandler successHandler,
-            AuthenticationFailureHandler failureHandler, TokenExtractor tokenExtractor) {
+            AuthenticationFailureHandler failureHandler) {
         super(url, successHandler, failureHandler);
-        this.tokenExtractor = tokenExtractor;
         this.mapper = new ObjectMapper();
     }
 
+    /**
+     * Processes the received request to extract the token information.
+     *
+     * @param request the received request.
+     * @param response the response to be sent.
+     * @return {@link Authentication} the authentication result.
+     * @throws AuthenticationException if the authentication parameters are invalid.
+     * @throws IOException if an error occurs writing the response.
+     * @throws ServletException if an error occurs managing the Servlet.
+     */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException, IOException, ServletException {
@@ -39,10 +53,6 @@ public class JwtRefreshFilter extends JwtLoginFilter {
 
         JwtRawAccessToken rawAccessToken = new JwtRawAccessToken(refreshToken);
 
-        // Retrieve User to build the user context and create the new token
-        //        UserContext userContext = UserContext.create("admin", Collections.singletonList(CustomAuthority.ADMIN));
-
         return getAuthenticationManager().authenticate(new JwtAuthenticationToken(rawAccessToken));
     }
-
 }

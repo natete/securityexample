@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Controller that contains test methods
+ * Controller that contains test methods.
  *
  * @author iiglesias
- *
  */
 @RestController
 @RequestMapping(value = "/api/test")
@@ -39,7 +38,6 @@ public class TestController extends ExceptionsHandler {
 
     /**
      * Method to check if exception handler is operational
-     *
      */
     @GetMapping(value = "/exception")
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)

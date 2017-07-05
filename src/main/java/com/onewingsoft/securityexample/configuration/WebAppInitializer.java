@@ -9,7 +9,6 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
  * Servlet 3.0 container.
  *
  * @author iiglesias
- *
  */
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
  * or null if the key cannot be resolved.
  *
  * @author iiglesias
- *
  */
 @Component
 public class AppPropsValues {

@@ -1,7 +1,6 @@
 package com.onewingsoft.securityexample.security.props;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-@PropertySource(value = { "classpath:security.properties" })
 public class SecurityPropsValues {
 
     /*
@@ -31,8 +29,6 @@ public class SecurityPropsValues {
     @Value("${" + SecurityPropsKeys.JWT_TOKEN_EXPIRATION_TIME + "}")
     private int jwtTokenExpirationTime;
 
-    private String swaggerInfoVersion;
-
     public String getAppName() {
         return appName;
     }
@@ -48,9 +44,4 @@ public class SecurityPropsValues {
     public int getJwtTokenExpirationTime() {
         return jwtTokenExpirationTime;
     }
-
-    public String getSwaggerInfoVersion() {
-        return swaggerInfoVersion;
-    }
-
 }

@@ -2,6 +2,7 @@ package com.onewingsoft.securityexample.security.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.onewingsoft.securityexample.security.handlers.JwtAuthenticationSuccessHandler;
 
 /**
  * @author igonzalez
@@ -13,8 +14,8 @@ public class LogoutRequest {
     private final String refreshToken;
 
     @JsonCreator
-    public LogoutRequest(@JsonProperty("accessToken") String accessToken,
-            @JsonProperty("refreshToken") String refreshToken) {
+    public LogoutRequest(@JsonProperty(JwtAuthenticationSuccessHandler.ACCESS_TOKEN) String accessToken,
+            @JsonProperty(JwtAuthenticationSuccessHandler.REFRESH_TOKEN) String refreshToken) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
     }

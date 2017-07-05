@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- *
+ * Handles logout requests.
  *
  * @author igonzalez
  * @since 04/07/17.
@@ -31,6 +31,12 @@ public class RevokeTokenHandler implements LogoutHandler {
     private final ObjectMapper mapper;
     private final TokenVerifier tokenVerifier;
 
+    /**
+     * Default constructor.
+     *
+     * @param securityPropsValues an instance of {@link SecurityPropsValues} to get the needed configuration values.
+     * @param tokenVerifier an instance of {@link TokenVerifier} to allow token revocation.
+     */
     @Autowired
     public RevokeTokenHandler(SecurityPropsValues securityPropsValues, TokenVerifier tokenVerifier) {
         this.securityPropsValues = securityPropsValues;
@@ -38,6 +44,14 @@ public class RevokeTokenHandler implements LogoutHandler {
         this.mapper = new ObjectMapper();
     }
 
+    /**
+     * {@see LogoutHandler#logout} handles the logout request.
+     *
+     * @param request the received request.
+     * @param response the response to be sent.
+     * @param authentication the authentication result.
+     * @throws AuthenticationException if the received tokens are invalid.
+     */
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws AuthenticationException {
@@ -48,22 +62,28 @@ public class RevokeTokenHandler implements LogoutHandler {
             JwtRawAccessToken accessToken = new JwtRawAccessToken(logoutRequest.getAccessToken());
             JwtRawAccessToken refreshToken = new JwtRawAccessToken(logoutRequest.getRefreshToken());
 
-            handleRevokedToken(accessToken);
-            handleRevokedToken(refreshToken);
+            revokeToken(accessToken);
+            revokeToken(refreshToken);
 
         } catch (IOException e) {
             throw new JwtInvalidToken("Invalid payload");
         }
     }
 
-    private void handleRevokedToken(JwtRawAccessToken token) throws AuthenticationException {
+    /**
+     * Extracts the token information catching possible exceptions thrown because of expired tokens.
+     *
+     * @param token the token to be revoked.
+     * @throws AuthenticationException if the token is invalid for a different reason that expired.
+     */
+    private void revokeToken(JwtRawAccessToken token) throws AuthenticationException {
         try {
             Claims claims = token.parseClaims(securityPropsValues.getJwtSecret()).getBody();
 
             tokenVerifier.revokeToken(claims);
 
         } catch (JwtExpiredTokenException ex) {
-            // If the token is expired we don't need to blacklist it, so we catch this exception.
+            // If the token is expired we don't need to blacklist it, so we silently catch this exception.
         }
     }
 }

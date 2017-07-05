@@ -12,7 +12,6 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
-import springfox.documentation.service.VendorExtension;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -71,14 +70,14 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
 
         // Custom produces for the response messages
 
-        Set<String> produces = new HashSet<String>();
+        Set<String> produces = new HashSet<>();
         produces.add(MediaType.APPLICATION_JSON_VALUE);
 
         docket.produces(produces);
 
         // Custom request for the request messages
 
-        Set<String> consumes = new HashSet<String>();
+        Set<String> consumes = new HashSet<>();
         consumes.add(MediaType.APPLICATION_JSON_VALUE);
 
         docket.consumes(consumes);
@@ -90,7 +89,7 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
                 .getSwaggerInfoTermsOfServiceUrl(), new Contact(
                 appPropsValues.getSwaggerInfoContactName(), appPropsValues.getSwaggerInfoContactUrl(),
                 appPropsValues.getSwaggerInfoContactEmail()), appPropsValues.getSwaggerInfoLicense(),
-                appPropsValues.getSwaggerInfoLicenseURL(), new ArrayList<VendorExtension>()));
+                appPropsValues.getSwaggerInfoLicenseURL(), new ArrayList<>()));
 
         return docket;
     }

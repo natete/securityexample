@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * Handles succeeded authentications.
  *
  * @author igonzalez
  * @since 02/07/17.
@@ -35,12 +35,27 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
     private final ObjectMapper mapper;
     private final JwtTokenCreator tokenCreator;
 
+    /**
+     * Default constructor.
+     *
+     * @param tokenCreator an instance of {@link JwtTokenCreator} to build the tokens to be sent.
+     */
     @Autowired
     public JwtAuthenticationSuccessHandler(JwtTokenCreator tokenCreator) {
         this.mapper = new ObjectMapper();
         this.tokenCreator = tokenCreator;
     }
 
+    /**
+     * {@see AuthenticationSuccessHandler#onAuthenticationSuccess} the method to be called when the authentication
+     * process succeeds.
+     *
+     * @param request the received request.
+     * @param response the response to be sent.
+     * @param auth the result of the authentication process.
+     * @throws IOException if an error occurs writing the response.
+     * @throws ServletException if an error occurs managing the Servlet.
+     */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth)
             throws IOException, ServletException {
@@ -61,6 +76,11 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
         clearAuthenticationAttributes(request);
     }
 
+    /**
+     * Clears the authentication attributes from the session of the request.
+     *
+     * @param request the received request.
+     */
     private void clearAuthenticationAttributes(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 

@@ -15,7 +15,6 @@ import java.lang.reflect.Parameter;
  * Aspect for annotation to auditate a method
  *
  * @author iiglesias
- *
  */
 @Component
 @Aspect

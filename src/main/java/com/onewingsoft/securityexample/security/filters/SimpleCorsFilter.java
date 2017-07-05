@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
+ * Manages Cors configuration.
+ *
  * @author igonzalez
  * @since 02/07/17.
  */
@@ -20,6 +22,11 @@ import java.util.Collections;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class SimpleCorsFilter {
 
+    /**
+     * Bean that represents the Cors filter with the desired configuration.
+     *
+     * @return {@link CorsFilter} the Cors filter to be applied.
+     */
     @Bean
     public CorsFilter corsFilter() {
 
@@ -27,7 +34,6 @@ public class SimpleCorsFilter {
         config.setAllowCredentials(true);
         config.setAllowedMethods(Arrays.asList("OPTIONS", "GET", "POST", "PUT", "DELETE"));
         config.setAllowedOrigins(Collections.singletonList("*"));
-//        config.addAllowedHeader("*");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration(WebSecurityConfig.API_ENDPOINTS, config);

@@ -1,4 +1,4 @@
-package com.onewingsoft.securityexample.security.jwt.verifier.redis;
+package com.onewingsoft.securityexample.security.repositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundValueOperations;

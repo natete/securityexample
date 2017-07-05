@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Manages not authenticated requests
+ * Manages not authenticated requests.
  *
  * @author igonzalez
  * @since 02/07/17.
@@ -19,6 +19,15 @@ import java.io.IOException;
 @Component
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
+    /**
+     * Returns Unauthorized for non authenticated requests.
+     *
+     * @param httpServletRequest the received request.
+     * @param httpServletResponse the response to be sent.
+     * @param e the authentication exception thrown.
+     * @throws IOException if there is an error writing the response.
+     * @throws ServletException if there is an error handling the response in the servlet.
+     */
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
             AuthenticationException e) throws IOException, ServletException {

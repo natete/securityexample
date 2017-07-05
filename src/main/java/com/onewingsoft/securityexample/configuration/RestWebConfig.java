@@ -15,7 +15,6 @@ import java.util.List;
  * Class that provides the dispatcher servlet application for the Rest Web MVC context.
  *
  * @author iiglesias
- *
  */
 @Configuration
 @EnableWebMvc

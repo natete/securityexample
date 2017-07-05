@@ -4,7 +4,6 @@ package com.onewingsoft.securityexample.commons.props;
  * Mapping keys in the property resource app.properties
  *
  * @author iiglesias
- *
  */
 public class AppPropsKeys {
 

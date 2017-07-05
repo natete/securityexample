@@ -7,7 +7,6 @@ import java.io.Serializable;
  * com.onewingsoft.securityexample.controller exception.
  *
  * @author iiglesias
- *
  */
 public class ErrorResponse implements Serializable {
 

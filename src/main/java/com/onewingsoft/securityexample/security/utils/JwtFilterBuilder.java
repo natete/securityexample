@@ -61,7 +61,7 @@ public class JwtFilterBuilder {
     }
 
     public JwtRefreshFilter buildJwtRefreshFilter() {
-        JwtRefreshFilter filter = new JwtRefreshFilter(WebSecurityConfig.REFRESH_TOKEN_ENDPOINT, successHandler, failureHandler, tokenExtractor);
+        JwtRefreshFilter filter = new JwtRefreshFilter(WebSecurityConfig.REFRESH_TOKEN_ENDPOINT, successHandler, failureHandler);
 
         filter.setAuthenticationManager(authenticationManager);
 

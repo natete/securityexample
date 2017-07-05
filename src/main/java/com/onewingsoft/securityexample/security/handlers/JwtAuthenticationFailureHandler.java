@@ -2,6 +2,7 @@ package com.onewingsoft.securityexample.security.handlers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onewingsoft.securityexample.controller.response.ErrorResponse;
+import com.onewingsoft.securityexample.security.exceptions.JwtExpiredTokenException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- *
+ * Handles errors on authentication filters.
  *
  * @author igonzalez
  * @since 02/07/17.
@@ -23,23 +24,35 @@ import java.io.IOException;
 public class JwtAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
     private static final String BAD_CREDENTIALS_CODE = "13";
-    ObjectMapper mapper = new ObjectMapper();
+    private static final String EXPIRED_TOKEN_CODE = "14";
+    private final ObjectMapper mapper = new ObjectMapper();
 
+    /**
+     * {@see AuthenticationFailureHandler#onAuthenticationFailure}
+     *
+     * @param request the received request.
+     * @param response the response to be sent.
+     * @param e the authentication error registered.
+     * @throws IOException if an error occurs writing the response.
+     * @throws ServletException if an error occurs managing the Servlet.
+     */
     @Override
-    public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException e) throws IOException, ServletException {
 
         ErrorResponse errorResponse;
 
-        httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
 
         // Manage different exception types such as token expired, bad credentials etc.
         if (e instanceof BadCredentialsException) {
             errorResponse = new ErrorResponse(BAD_CREDENTIALS_CODE, "Bad Credentials");
+        } else if (e instanceof JwtExpiredTokenException) {
+            errorResponse = new ErrorResponse(EXPIRED_TOKEN_CODE, "Expired token");
         } else {
             errorResponse = new ErrorResponse(HttpStatus.UNAUTHORIZED.toString(), "Unauthorized");
         }
 
-        mapper.writeValue(httpServletResponse.getWriter(), errorResponse);
+        mapper.writeValue(response.getWriter(), errorResponse);
     }
 }

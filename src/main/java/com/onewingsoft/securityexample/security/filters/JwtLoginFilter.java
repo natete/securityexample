@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.util.Collections;
 
 /**
+ * The filter to be applied on login requests.
+ *
  * @author igonzalez
  * @since 02/07/17.
  */
@@ -26,6 +28,13 @@ public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
     private final AuthenticationFailureHandler failureHandler;
     private final ObjectMapper mapper;
 
+    /**
+     * Default constructor.
+     *
+     * @param url the url to be filtered.
+     * @param successHandler the method to be called on authentication success.
+     * @param failureHandler the method to be called on authentication error.
+     */
     public JwtLoginFilter(String url, AuthenticationSuccessHandler successHandler,
             AuthenticationFailureHandler failureHandler) {
 
@@ -35,6 +44,16 @@ public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
         this.mapper = new ObjectMapper();
     }
 
+    /**
+     * Processes the received request to extract the login information.
+     *
+     * @param request the received request.
+     * @param response the response to be sent.
+     * @return {@link Authentication} the authentication result.
+     * @throws AuthenticationException if the authentication parameters are invalid.
+     * @throws IOException if an error occurs writing the response.
+     * @throws ServletException if an error occurs managing the Servlet.
+     */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException, IOException, ServletException {
@@ -50,12 +69,35 @@ public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
         );
     }
 
+    /**
+     * {@see AbstractAuthenticationProcessingFilter#successfulAuthentication} Method to be called when the authentication
+     * process succeeds.
+     *
+     * @param request the request received.
+     * @param response the response to be sent.
+     * @param chain the filter chain to be applied.
+     * @param authResult the result of the authentication process to allow the handler extract the authenticated user.
+     * @throws IOException if an error occurs writing the response.
+     * @throws ServletException if an error occurs managing the Servlet.
+     */
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
             Authentication authResult) throws IOException, ServletException {
         successHandler.onAuthenticationSuccess(request, response, authResult);
+
+        chain.doFilter(request, response);
     }
 
+    /**
+     * {@see AbstractAuthenticationProcessingFilter#unsuccessfulAuthentication} Method to be called whe the authentication
+     * process fails.
+     *
+     * @param request the request received.
+     * @param response the response to be sent.
+     * @param failed the authentication error that produced the failure.
+     * @throws IOException if an error occurs writing the response.
+     * @throws ServletException if an error occurs managing the Servlet.
+     */
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException failed) throws IOException, ServletException {

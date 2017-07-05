@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * should extend to this class.
  *
  * @author iiglesias
- *
  */
 public class ExceptionsHandler {
 
@@ -19,7 +18,6 @@ public class ExceptionsHandler {
      * Handler for {@link Exception} class with Internal Server Error code
      *
      * @param e Exception
-     *
      * @return
      */
     @ExceptionHandler(Exception.class)

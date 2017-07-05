@@ -9,7 +9,6 @@ import java.lang.annotation.Target;
  * Annotation for auditate a method
  *
  * @author iiglesias
- *
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
@@ -26,7 +25,6 @@ public @interface AuditMethod {
      * Audit level
      *
      * @author iiglesias
-     *
      */
     public enum Level {
 
