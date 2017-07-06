@@ -47,11 +47,11 @@ public class RevokeTokenHandler implements LogoutHandler {
     /**
      * Handles the logout request.
      *
-     * @see LogoutHandler#logout(HttpServletRequest, HttpServletResponse, Authentication)
      * @param request the received request.
      * @param response the response to be sent.
      * @param authentication the authentication result.
      * @throws AuthenticationException if the received tokens are invalid.
+     * @see LogoutHandler#logout(HttpServletRequest, HttpServletResponse, Authentication)
      */
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication)

@@ -72,13 +72,13 @@ public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
     /**
      * Method to be called when the authentication process succeeds.
      *
-     * @see AbstractAuthenticationProcessingFilter#successfulAuthentication(HttpServletRequest, HttpServletResponse, FilterChain, Authentication)
      * @param request the request received.
      * @param response the response to be sent.
      * @param chain the filter chain to be applied.
      * @param authResult the result of the authentication process to allow the handler extract the authenticated user.
      * @throws IOException if an error occurs writing the response.
      * @throws ServletException if an error occurs managing the Servlet.
+     * @see AbstractAuthenticationProcessingFilter#successfulAuthentication(HttpServletRequest, HttpServletResponse, FilterChain, Authentication)
      */
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
@@ -91,12 +91,12 @@ public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
     /**
      * Method to be called whe the authentication process fails.
      *
-     * @see AbstractAuthenticationProcessingFilter#unsuccessfulAuthentication(HttpServletRequest, HttpServletResponse, AuthenticationException)
      * @param request the request received.
      * @param response the response to be sent.
      * @param failed the authentication error that produced the failure.
      * @throws IOException if an error occurs writing the response.
      * @throws ServletException if an error occurs managing the Servlet.
+     * @see AbstractAuthenticationProcessingFilter#unsuccessfulAuthentication(HttpServletRequest, HttpServletResponse, AuthenticationException)
      */
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,

@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.UUID;
 
 /**
- *
+ * A class that is responsible of tokens creation.
  *
  * @author igonzalez
  * @since 02/07/17.
@@ -21,18 +21,30 @@ public abstract class JwtTokenCreator {
 
     private static SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
-    protected final SecurityPropsValues propsValues;
+    final SecurityPropsValues securityPropsValues;
 
-    public JwtTokenCreator(SecurityPropsValues propsValues) {
-        this.propsValues = propsValues;
+    /**
+     * Default constructor.
+     *
+     * @param securityPropsValues an instance of the class holding the properties related to security.
+     */
+    public JwtTokenCreator(SecurityPropsValues securityPropsValues) {
+        this.securityPropsValues = securityPropsValues;
     }
 
     /**
-     * Used to support multi-tenancy
+     * Gets the audience of the token which is used to support multi-tenancy.
+     *
      * @return the tenant
      */
     protected abstract String getAudience();
 
+    /**
+     * Creates an access token.
+     *
+     * @param user the user whose information must go in the token.
+     * @return the access token.
+     */
     public JwtAccessToken createAccessToken(UserContext user) {
         if (StringUtils.isBlank(user.getUsername())) {
             throw new IllegalArgumentException("Username is mandatory");
@@ -49,6 +61,12 @@ public abstract class JwtTokenCreator {
         return new JwtAccessToken(jwt);
     }
 
+    /**
+     * Creates an refresh token.
+     *
+     * @param user the user whose information must go in the token.
+     * @return the refresh token.
+     */
     public JwtToken createRefreshToken(UserContext user) {
 
         if (StringUtils.isBlank(user.getUsername())) {
@@ -64,36 +82,52 @@ public abstract class JwtTokenCreator {
     }
 
     /**
-     * Extend this to add the claims that your application needs in the access token.
-     * @param user the user owner of the JWT to be issued
+     * Part of the strategy pattern implementation. Overriding this method you can add the claims that your application
+     * needs in the access token.
+     *
+     * @param user the user owner of the JWT to be issued.
      * @return the claims required by your application.
      */
     protected abstract Claims buildAccessTokenClaims(UserContext user);
 
     /**
-     * Extend this to add the claims that your application needs in the refresh token.
-     * @param user the user owner of the JWT to be issued
+     * Part of the strategy pattern implementation. Overriding this method you can add the claims that your application
+     * needs in the refresh token.
+     *
+     * @param user the user owner of the JWT to be issued.
      * @return the claims required by your application.
      */
     protected abstract Claims buildRefreshTokenClaims(UserContext user);
 
+    /**
+     * Builds the basic structure of the claims.
+     *
+     * @param user the user owner of the JWT to be issued.
+     * @param currentTime the current time used to set the issued time.
+     * @return the basic {@link Claims}
+     */
     Claims buildBasicClaims(UserContext user, LocalDateTime currentTime) {
 
         Claims claims = Jwts.claims();
 
         claims.setId(UUID.randomUUID().toString());
         claims.setSubject(user.getUsername());
+        claims.setIssuer(securityPropsValues.getAppName());
+        claims.setAudience(this.getAudience()); // To support multi-tenant
         claims.setIssuedAt(Date.from(currentTime.atZone(ZoneId.systemDefault()).toInstant()));
         return claims;
     }
 
+    /**
+     * Builds the JWT token with the given claims.
+     *
+     * @param claims the claims to be added to the token.
+     * @return the string that represents the token.
+     */
     private String buildJwt(Claims claims) {
         return Jwts.builder()
-                   .setIssuer(propsValues.getAppName())
-                   .setAudience(this.getAudience()) // To support multi-tenant
-                   .setId(UUID.randomUUID().toString())
-                   .setClaims(claims)
-                   .signWith(SIGNATURE_ALGORITHM, propsValues.getJwtSecret())
-                   .compact();
+                .setClaims(claims)
+                .signWith(SIGNATURE_ALGORITHM, securityPropsValues.getJwtSecret())
+                .compact();
     }
 }

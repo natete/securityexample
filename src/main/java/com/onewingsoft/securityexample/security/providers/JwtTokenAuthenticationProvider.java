@@ -2,7 +2,11 @@ package com.onewingsoft.securityexample.security.providers;
 
 import com.onewingsoft.securityexample.security.exceptions.JwtInvalidToken;
 import com.onewingsoft.securityexample.security.jwt.verifier.TokenVerifier;
-import com.onewingsoft.securityexample.security.model.*;
+import com.onewingsoft.securityexample.security.model.CustomAuthority;
+import com.onewingsoft.securityexample.security.model.JwtAuthenticationToken;
+import com.onewingsoft.securityexample.security.model.JwtRawAccessToken;
+import com.onewingsoft.securityexample.security.model.JwtTokenCreatorImpl;
+import com.onewingsoft.securityexample.security.model.UserContext;
 import com.onewingsoft.securityexample.security.props.SecurityPropsValues;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- *
+ * The provider used to grant the access to users that have a JWT.
  *
  * @author igonzalez
  * @since 02/07/17.
@@ -27,12 +31,26 @@ public class JwtTokenAuthenticationProvider implements AuthenticationProvider {
     private final SecurityPropsValues securityPropsValues;
     private final TokenVerifier tokenVerifier;
 
+    /**
+     * Default constructor.
+     *
+     * @param securityPropsValues an instance of the class holding the properties related to security.
+     * @param tokenVerifier an instance of the {@link TokenVerifier} used to check if the token has been revoked.
+     */
     @Autowired
     public JwtTokenAuthenticationProvider(SecurityPropsValues securityPropsValues, TokenVerifier tokenVerifier) {
         this.securityPropsValues = securityPropsValues;
         this.tokenVerifier = tokenVerifier;
     }
 
+    /**
+     * Performs the authentication of the user checking if the provided token is valid.
+     *
+     * @param authentication the {@link Authentication} filtered by the corresponding filter.
+     * @return {@link UsernamePasswordAuthenticationToken} the authentication result.
+     * @throws AuthenticationException if the token is invalid.
+     * @see AuthenticationProvider#authenticate(Authentication)
+     */
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         JwtRawAccessToken rawAccessToken = (JwtRawAccessToken) authentication.getCredentials();
@@ -56,6 +74,9 @@ public class JwtTokenAuthenticationProvider implements AuthenticationProvider {
         }
     }
 
+    /**
+     * @see AuthenticationProvider#supports(Class)
+     */
     @Override
     public boolean supports(Class<?> authentication) {
         return JwtAuthenticationToken.class.isAssignableFrom(authentication);

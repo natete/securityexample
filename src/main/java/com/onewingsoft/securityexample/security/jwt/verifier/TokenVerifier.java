@@ -20,6 +20,7 @@ public interface TokenVerifier {
 
     /**
      * Revokes the token represented by the given claims by adding it to the list of revoked tokens.
+     *
      * @param claims the {@link Claims} that represent the token to be revoked.
      */
     void revokeToken(Claims claims);

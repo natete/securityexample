@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * @see TokenVerifier
- *
  * @author igonzalez
+ * @see TokenVerifier
  * @since 04/07/17.
  */
 @Component

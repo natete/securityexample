@@ -8,8 +8,8 @@ import java.util.Collection;
 /**
  * Represents an authentication token on the process of being validated.
  *
- * @see AbstractAuthenticationToken
  * @author igonzalez
+ * @see AbstractAuthenticationToken
  * @since 02/07/17.
  */
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
@@ -45,7 +45,6 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
     /**
      * @see AbstractAuthenticationToken#setAuthenticated(boolean)
-     * @param authenticated
      */
     @Override
     public void setAuthenticated(boolean authenticated) {
@@ -57,8 +56,8 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
     }
 
     /**
-     * @see AbstractAuthenticationToken#getCredentials()
      * @return the credentials represented by a {@link JwtRawAccessToken}
+     * @see AbstractAuthenticationToken#getCredentials()
      */
     @Override
     public Object getCredentials() {
@@ -66,8 +65,8 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
     }
 
     /**
-     * @see AbstractAuthenticationToken#getPrincipal()
      * @return the credentials represented by a {@link UserContext}
+     * @see AbstractAuthenticationToken#getPrincipal()
      */
     @Override
     public Object getPrincipal() {

@@ -14,6 +14,11 @@ public enum CustomAuthority implements GrantedAuthority {
 
     private String authority;
 
+    /**
+     * Default constructor.
+     *
+     * @param authority the authority.
+     */
     CustomAuthority(String authority) {
         this.authority = authority;
     }

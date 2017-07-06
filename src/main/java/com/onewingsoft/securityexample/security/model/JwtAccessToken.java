@@ -12,15 +12,16 @@ public class JwtAccessToken implements JwtToken {
 
     /**
      * Default constructor.
-     * @param token
+     *
+     * @param token the token
      */
-    protected JwtAccessToken(String token) {
+    JwtAccessToken(String token) {
         this.token = token;
     }
 
     /**
-     * @see JwtToken#getToken()
      * @return a String representing the token.
+     * @see JwtToken#getToken()
      */
     @Override
     public String getToken() {

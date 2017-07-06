@@ -4,6 +4,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 /**
+ * Represents a revoked token to be stored in Redis.
+ *
  * @author igonzalez
  * @since 04/07/17.
  */
@@ -11,12 +13,20 @@ import org.springframework.data.redis.core.RedisHash;
 public class RevokedToken {
 
     @Id
-    String key;
+    private String key;
 
+    /**
+     * Empty constructor.
+     */
     protected RevokedToken() {
         super();
     }
 
+    /**
+     * Default constructor.
+     *
+     * @param key the key to be stored.
+     */
     public RevokedToken(String key) {
         this.key = key;
     }

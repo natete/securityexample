@@ -5,8 +5,8 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.stereotype.Component;
 
 /**
- * @see TokenExtractor
  * @author igonzalez
+ * @see TokenExtractor
  * @since 02/07/17.
  */
 @Component
